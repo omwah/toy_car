@@ -1,4 +1,10 @@
-// Control the toy car with photo sensors that move when the average light level changes
+// Make the toy car react to photo sensors
+
+#include "motor_shield.h"
+
+void photo_sensors_setup()
+{
+}
 
 // Keep track of a bunch of light levels to keep a running average
 const int NUM_LIGHT_VALS = 10;
@@ -12,14 +18,12 @@ bool first_time = false;
 
 const int TRIGGER_THRESH = 10;
 
+const int DFLT_SPEED = 127;
+
 // Set up functions to call when sensors are triggered
 // Functions defined in motor_shield.ino
-void left();
-void right();
-void stop();
-
 // Function pointer array of functions to call
-void (*trigger_funcs[NUM_SENSORS]) () = {left, right};
+void (*trigger_funcs[NUM_SENSORS]) (int) = {left, right};
 
 // Set all levels
 void init_light_levels(int curr_levels[])
@@ -73,9 +77,9 @@ void print_debug(int curr_levels[], int level_avgs[]) {
 
 // Delay a bit when starting up to avoid triggers before
 // sensors have stabilized
-int init_delay = 10;
+int trigger_delay = NUM_LIGHT_VALS;
 
-void loop()
+void photo_sensors_actions()
 {
     // Record sensor values in array
     int curr_levels[NUM_SENSORS];
@@ -99,10 +103,10 @@ void loop()
     // Look for trigger conditions
     int triggered = false;
     for(int sens = 0; sens < NUM_SENSORS; sens++) {
-        if ((curr_levels[sens] - avg_levels[sens]) > TRIGGER_THRESH && init_delay == 0) {
+        if ((curr_levels[sens] - avg_levels[sens]) > TRIGGER_THRESH && trigger_delay == 0) {
             Serial.print("trigger #");
             Serial.println(sens);
-            trigger_funcs[sens]();
+            trigger_funcs[sens](DFLT_SPEED);
             triggered = true;
         } else {
             stop();
@@ -110,10 +114,8 @@ void loop()
 
     }
 
-    if (init_delay > 0) {
-        init_delay--;
+    if (trigger_delay > 0) {
+        trigger_delay--;
     }
-
-    delay(20);
 
 }

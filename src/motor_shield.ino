@@ -25,9 +25,7 @@ int pinI3=12;//define I3 interface
 int speedpinB=10;//enable motor B
 int pinI4=13;//define I4 interface 
 
-int speed = 127;//define the speed of motor
-
-void setup()
+void motor_shield_setup()
 {
   pinMode(pinI1,OUTPUT);
   pinMode(pinI2,OUTPUT);
@@ -35,12 +33,9 @@ void setup()
   pinMode(pinI3,OUTPUT);
   pinMode(pinI4,OUTPUT);
   pinMode(speedpinB,OUTPUT);
-  
-  // serial for debugging
-  Serial.begin(9600);
 }
  
-void forward()
+void forward(int speed)
 {
      analogWrite(speedpinA,speed);//input a simulation value to set the speed
      analogWrite(speedpinB,speed);
@@ -49,7 +44,8 @@ void forward()
      digitalWrite(pinI2,LOW);//turn DC Motor A move anticlockwise
      digitalWrite(pinI1,HIGH);
 }
-void backward()//
+
+void backward(int speed)
 {
      analogWrite(speedpinA,speed);//input a simulation value to set the speed
      analogWrite(speedpinB,speed);
@@ -58,7 +54,7 @@ void backward()//
      digitalWrite(pinI2,HIGH);//turn DC Motor A move clockwise
      digitalWrite(pinI1,LOW);
 }
-void left()//
+void left(int speed)
 {
      analogWrite(speedpinA,speed);//input a simulation value to set the speed
      analogWrite(speedpinB,speed);
@@ -67,7 +63,7 @@ void left()//
      digitalWrite(pinI2,HIGH);//turn DC Motor A move clockwise
      digitalWrite(pinI1,LOW);
 }
-void right()//
+void right(int speed)
 {
      analogWrite(speedpinA,speed);//input a simulation value to set the speed
      analogWrite(speedpinB,speed);
@@ -76,7 +72,7 @@ void right()//
      digitalWrite(pinI2,LOW);//turn DC Motor A move clockwise
      digitalWrite(pinI1,HIGH);
 }
-void stop()//
+void stop()
 {
      digitalWrite(speedpinA,LOW);// Unenble the pin, to stop the motor. this should be done to avid damaging the motor. 
      digitalWrite(speedpinB,LOW);
@@ -84,18 +80,25 @@ void stop()//
 
 void test_motors()
 {
-  delay(20000);
-  left();
-  delay(2000);
-  stop();
-  right();
+  int speed = 127;
+
+  left(speed);
   delay(2000);
   stop();
   delay(1000);
-  forward();
+
+  right(speed);
   delay(2000);
   stop();
-  backward();
+  delay(1000);
+
+  forward(speed);
+  delay(2000);
+  stop();
+  delay(1000);
+
+  backward(speed);
   delay(2000); 
-  stop(); 
+  stop();
+  delay(1000);
 }
