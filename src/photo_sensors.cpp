@@ -1,5 +1,6 @@
 // Make the toy car react to photo sensors
 
+#include <Arduino.h>
 #include "motor_shield.h"
 
 void photo_sensors_setup()

@@ -1,6 +1,7 @@
 // Location of central setup / loop routines
 // Connects together functionality
 
+#include <Arduino.h>
 #include "motor_shield.h"
 #include "photo_sensors.h"
 
