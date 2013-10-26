@@ -9,22 +9,48 @@ void photo_sensors_setup()
 
 // Keep track of a bunch of light levels to keep a running average
 const int NUM_LIGHT_VALS = 10;
-const int NUM_SENSORS = 2;
+const int NUM_SENSORS = 3;
+const int NUM_TRIGGERS = 8; // NUM_SENSORS^2 - 1
 
 // Analog pins which are connected to the photo resistors
-int sensors[NUM_SENSORS] = {0, 4}; // A0, A4
-
-int light_levels[NUM_SENSORS][NUM_LIGHT_VALS] = {0};
-bool first_time = false;
-
-const int TRIGGER_THRESH = 10;
-
-const int DFLT_SPEED = 127;
+// 0 - left
+// 4 - right
+// 1 - backward
+const int sensors[NUM_SENSORS] = {0, 4, 1};
+const int trigger_thresh[NUM_SENSORS] = {30, 30, 40};
+const int DEFAULT_SPEED = 127;
 
 // Set up functions to call when sensors are triggered
 // Functions defined in motor_shield.ino
-// Function pointer array of functions to call
-void (*trigger_funcs[NUM_SENSORS]) (int) = {left, right};
+// Index will be the binary value of the trigger which is
+// a binary and of the sensors by posistion index to binary
+// index from LSB to MSB
+//
+// ie.
+// 100 sensor 3
+// 010 sensor 2
+// 001 sensor 1
+
+// Function to meet signature for function array below
+void stop_i(int speed) {
+    stop();
+}
+
+void (*trigger_funcs[NUM_TRIGGERS]) (int) = { 
+    stop_i,   // 0 - 000
+    left,     // 1 - 001
+    right,    // 2 - 010
+    forward,  // 3 - 011
+    backward, // 4 - 100
+    right,    // 5 - 101
+    left,     // 6 - 110
+    backward, // 7 - 111
+    };
+
+
+// These variables track persistent data
+int light_levels[NUM_SENSORS][NUM_LIGHT_VALS] = {0};
+bool first_time = true;
 
 // Set all levels
 void init_light_levels(int curr_levels[])
@@ -36,28 +62,27 @@ void init_light_levels(int curr_levels[])
     }
 }
 
-// Record most recent light levels and return averages
-void average_light_levels(int curr_levels[], int level_avgs[])
-{
+// Record light level for sensor
+void record_light_level(int curr_level, int sens) {
     // Shift all values down one index
-    for(int sens = 0; sens < NUM_SENSORS; sens++) {
-        for(int lev = 0; lev < NUM_LIGHT_VALS; lev++) {  
-          light_levels[sens][lev-1] = light_levels[sens][lev];
-        }
+    for(int lev = 1; lev < NUM_LIGHT_VALS; lev++) {  
+        light_levels[sens][lev-1] = light_levels[sens][lev];
     }
 
     // Record latest values
-    for(int sens = 0; sens < NUM_SENSORS; sens++) {
-        light_levels[sens][NUM_LIGHT_VALS-1] = curr_levels[sens];
-    }
+    light_levels[sens][NUM_LIGHT_VALS-1] = curr_level;
+}
 
+// Returns averages for sensors
+void average_light_levels(int curr_levels[], int level_avgs[])
+{
     // Create sum for averages
     for(int sens = 0; sens < NUM_SENSORS; sens++) {
-        level_avgs[sens] = 0;
+        word sens_sum = 0; // so we dont overflow
         for(int lev = 0; lev < NUM_LIGHT_VALS; lev++) {  
-          level_avgs[sens] += light_levels[sens][lev];
+            sens_sum += light_levels[sens][lev];
         }
-        level_avgs[sens] /= NUM_LIGHT_VALS;
+        level_avgs[sens] = sens_sum / NUM_LIGHT_VALS;
     }
 
 }
@@ -99,24 +124,28 @@ void photo_sensors_actions()
     int avg_levels[NUM_SENSORS];
     average_light_levels(curr_levels, avg_levels);
 
-    print_debug(curr_levels, avg_levels);
-
-    // Look for trigger conditions
-    int triggered = false;
+    // Look for trigger value
+    // This will be a binary and of all sensors starting
+    // from LSB to MSB
+    int trigger_value = 0;
     for(int sens = 0; sens < NUM_SENSORS; sens++) {
-        if ((curr_levels[sens] - avg_levels[sens]) > TRIGGER_THRESH && trigger_delay == 0) {
-            Serial.print("trigger #");
-            Serial.println(sens);
-            trigger_funcs[sens](DFLT_SPEED);
-            triggered = true;
-        } else {
-            stop();
+        if ((curr_levels[sens] - avg_levels[sens]) > trigger_thresh[sens] && trigger_delay == 0) {
+            trigger_value = trigger_value | (1 << sens);
         }
-
+        record_light_level(curr_levels[sens], sens);
     }
 
     if (trigger_delay > 0) {
         trigger_delay--;
     }
+
+    // Perform action based on trigger value
+    if(trigger_value > 0) {
+        Serial.print("trigger value: ");
+        Serial.println(trigger_value);
+        print_debug(curr_levels, avg_levels);
+    }
+
+    trigger_funcs[trigger_value](DEFAULT_SPEED);
 
 }

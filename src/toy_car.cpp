@@ -17,5 +17,5 @@ void setup()
 void loop()
 {
     photo_sensors_actions();
-    delay(20);
+    delay(50);
 }
