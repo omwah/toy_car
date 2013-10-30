@@ -13,12 +13,12 @@ const int NUM_SENSORS = 3;
 const int NUM_TRIGGERS = 8; // NUM_SENSORS^2 - 1
 
 // Analog pins which are connected to the photo resistors
-// 0 - left
-// 4 - right
+// 3 - left
+// 2 - right
 // 1 - backward
-const int sensors[NUM_SENSORS] = {0, 4, 1};
-const int trigger_thresh[NUM_SENSORS] = {30, 30, 40};
-const int DEFAULT_SPEED = 127;
+const int sensors[NUM_SENSORS] = {3, 2, 1};
+const int trigger_thresh[NUM_SENSORS] = {60, 60, 80};
+const int DEFAULT_SPEED = 100;
 
 // Set up functions to call when sensors are triggered
 // Functions defined in motor_shield.ino
