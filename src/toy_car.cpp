@@ -4,11 +4,13 @@
 #include <Arduino.h>
 #include "motor_shield.h"
 #include "photo_sensors.h"
+#include "calibrate.h"
 
 void setup()
 {
     motor_shield_setup();
     photo_sensors_setup();
+    calibrate_setup();
 
     // serial for debugging
     Serial.begin(9600);
@@ -16,6 +18,10 @@ void setup()
 
 void loop()
 {
-    photo_sensors_actions();
-    delay(50);
+    // Photo sensors
+    //photo_sensors_actions();
+    //delay(50);
+
+    // Calibrate
+    calibrate();
 }
