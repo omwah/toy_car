@@ -23,6 +23,9 @@ void do_step( void(*step_func)() ) {
         Serial.print("Step "); Serial.println(step);
         finished = true;
 
+        // Delay after button press before running
+        delay(200);
+
         // Call step function
         step_func();
         
@@ -38,20 +41,42 @@ void do_step( void(*step_func)() ) {
 void nothing(){
 }
 
-void forward_cal(){
-    Serial.println("Forward calibration");
-    delay(200);
-    forward(127);
-    delay(500);
+void forward_cal(int speed, int duration){
+    Serial.print("Forward calibration: ");
+    Serial.print("Speed = ");
+    Serial.print(speed);
+    Serial.print(", Duration = ");
+    Serial.print(duration);
+
+    forward(speed);
+    delay(duration);
     stop();
 }
 
-void backwards_cal(){
-    Serial.println("Backwards calibration");
-    delay(200);
-    backward(127);
-    delay(500);
-    stop();}
+void forward_cal_64_200() {
+    forward_cal(64, 200);
+}
+
+void forward_cal_64_500() {
+    forward_cal(64, 500);
+}
+
+void forward_cal_128_200() {
+    forward_cal(128, 200);
+}
+
+void forward_cal_128_500() {
+    forward_cal(128, 500);
+}
+
+void forward_cal_64_1000() {
+    forward_cal(64, 1000);
+}
+
+void forward_cal_128_1000() {
+    forward_cal(128, 1000);
+}
+
 
 void end() {
     Serial.println("End of calibrate");
@@ -64,10 +89,10 @@ void calibrate()
             do_step(nothing);
             break;
         case 1:
-            do_step(forward_cal);
+            do_step(forward_cal_64_1000);
             break;
         case 2:
-            do_step(backwards_cal);
+            do_step(forward_cal_128_1000);
             break;
         default:
             do_step(end);
