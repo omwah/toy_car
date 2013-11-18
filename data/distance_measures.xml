@@ -25,7 +25,7 @@
   </gnm:Attributes>
   <office:document-meta xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:meta="urn:oasis:names:tc:opendocument:xmlns:meta:1.0" xmlns:ooo="http://openoffice.org/2004/office" office:version="1.2">
     <office:meta>
-      <dc:date>2013-11-07T07:04:37Z</dc:date>
+      <dc:date>2013-11-07T07:09:27Z</dc:date>
       <meta:creation-date>2013-11-07T06:16:45Z</meta:creation-date>
     </office:meta>
   </office:document-meta>
@@ -39,7 +39,7 @@
   <gnm:Sheets>
     <gnm:Sheet DisplayFormulas="0" HideZero="0" HideGrid="0" HideColHeader="0" HideRowHeader="0" DisplayOutlines="1" OutlineSymbolsBelow="1" OutlineSymbolsRight="1" Visibility="GNM_SHEET_VISIBILITY_VISIBLE" GridColor="0:0:0">
       <gnm:Name>Sheet1</gnm:Name>
-      <gnm:MaxCol>8</gnm:MaxCol>
+      <gnm:MaxCol>9</gnm:MaxCol>
       <gnm:MaxRow>27</gnm:MaxRow>
       <gnm:Zoom>1</gnm:Zoom>
       <gnm:Names>
@@ -94,6 +94,7 @@
         <gnm:ColInfo No="4" Unit="54.75"/>
         <gnm:ColInfo No="7" Unit="48.75"/>
         <gnm:ColInfo No="8" Unit="60" HardSize="1"/>
+        <gnm:ColInfo No="9" Unit="96.75"/>
       </gnm:Cols>
       <gnm:Rows DefaultSizePts="12.75">
         <gnm:RowInfo No="0" Unit="13.5" Count="27"/>
@@ -101,117 +102,6 @@
       <gnm:Selections CursorCol="5" CursorRow="10">
         <gnm:Selection startCol="5" startRow="10" endCol="5" endRow="10"/>
       </gnm:Selections>
-      <gnm:Objects>
-        <gnm:SheetObjectGraph ObjectBound="J16" ObjectOffset="0.312 0.5 0.328 0.611" Direction="0" Print="1">
-          <GogObject type="GogGraph">
-            <property name="height-pts">1.500000</property>
-            <property name="width-pts">0.750000</property>
-            <property name="theme-name">Default</property>
-            <property name="padding-pts">7.086614</property>
-            <property name="style" type="GogStyle">
-              <outline dash="none" auto-dash="1" width="0" color="0:0:0:FF" auto-color="1"/>
-              <fill type="none" auto-type="1" is-auto="1" auto-fore="1"/>
-            </property>
-            <property name="anchor">top-left</property>
-            <property name="alignment">fill</property>
-            <GogObject role="Chart">
-              <property name="ypos">0</property>
-              <property name="padding-pts">7.086614</property>
-              <property name="style" type="GogStyle">
-                <outline dash="solid" auto-dash="1" width="0" color="0:0:0:FF" auto-color="1"/>
-                <fill type="pattern" auto-type="1" is-auto="1" auto-fore="1">
-                  <pattern type="solid" fore="0:0:0:FF" back="FF:FF:FF:FF"/>
-                </fill>
-              </property>
-              <property name="id">1</property>
-              <GogObject role="Grid">
-                <property name="style" type="GogStyle">
-                  <outline dash="solid" auto-dash="1" width="1" color="84:82:84:FF" auto-color="1"/>
-                  <fill type="pattern" auto-type="1" is-auto="1" auto-fore="1">
-                    <pattern type="solid" fore="0:0:0:FF" back="D0:D0:D0:FF"/>
-                  </fill>
-                </property>
-                <property name="id">1</property>
-              </GogObject>
-              <GogObject role="X-Axis">
-                <property name="map-name">Linear</property>
-                <property name="style" type="GogStyle">
-                  <line dash="solid" auto-dash="1" width="0" color="0:0:0:FF" auto-color="1"/>
-                  <font color="0:0:0:FF" font="Sans 8" auto-scale="1"/>
-                  <text_layout/>
-                </property>
-                <property name="id">1</property>
-                <data/>
-              </GogObject>
-              <GogObject role="Y-Axis">
-                <property name="map-name">Linear</property>
-                <property name="style" type="GogStyle">
-                  <line dash="solid" auto-dash="1" width="0" color="0:0:0:FF" auto-color="1"/>
-                  <font color="0:0:0:FF" font="Sans 8" auto-scale="1"/>
-                  <text_layout/>
-                </property>
-                <property name="id">1</property>
-                <data/>
-              </GogObject>
-              <GogObject role="Plot" type="GogLinePlot">
-                <property name="default-style-has-markers">FALSE</property>
-                <property name="y-axis">1</property>
-                <property name="x-axis">1</property>
-                <property name="vary-style-by-element">FALSE</property>
-                <property name="id">1</property>
-                <GogObject role="Series">
-                  <property name="fill-type">y-origin</property>
-                  <property name="interpolation">linear</property>
-                  <property name="style" type="GogStyle">
-                    <line dash="solid" auto-dash="1" width="0" color="0:0:80:FF" auto-color="1"/>
-                    <marker auto-shape="1" shape="none" auto-outline="1" outline-color="0:0:0:FF" auto-fill="1" fill-color="FF:FF:FF:FF" size="5"/>
-                  </property>
-                  <property name="id">1</property>
-                  <data>
-                    <dimension id="1" type="GnmGODataVector">Sheet1!$G$8:$G$10</dimension>
-                  </data>
-                </GogObject>
-                <GogObject role="Series">
-                  <property name="fill-type">y-origin</property>
-                  <property name="interpolation">linear</property>
-                  <property name="style" type="GogStyle">
-                    <line dash="solid" auto-dash="1" width="0" color="FF:0:FF:FF" auto-color="1"/>
-                    <marker auto-shape="1" shape="none" auto-outline="1" outline-color="0:0:0:FF" auto-fill="1" fill-color="FF:FF:FF:FF" size="5"/>
-                  </property>
-                  <property name="id">2</property>
-                  <data>
-                    <dimension id="1" type="GnmGODataVector">Sheet1!$I$8</dimension>
-                  </data>
-                </GogObject>
-                <GogObject role="Series">
-                  <property name="fill-type">y-origin</property>
-                  <property name="interpolation">linear</property>
-                  <property name="style" type="GogStyle">
-                    <line dash="solid" auto-dash="1" width="0" color="FF:FF:0:FF" auto-color="1"/>
-                    <marker auto-shape="1" shape="none" auto-outline="1" outline-color="0:0:0:FF" auto-fill="1" fill-color="FF:FF:FF:FF" size="5"/>
-                  </property>
-                  <property name="id">3</property>
-                  <data>
-                    <dimension id="1" type="GnmGODataVector">Sheet1!$I$10</dimension>
-                  </data>
-                </GogObject>
-                <GogObject role="Series">
-                  <property name="fill-type">y-origin</property>
-                  <property name="interpolation">linear</property>
-                  <property name="style" type="GogStyle">
-                    <line dash="solid" auto-dash="1" width="0" color="0:FF:FF:FF" auto-color="1"/>
-                    <marker auto-shape="1" shape="none" auto-outline="1" outline-color="0:0:0:FF" auto-fill="1" fill-color="FF:FF:FF:FF" size="5"/>
-                  </property>
-                  <property name="id">4</property>
-                  <data>
-                    <dimension id="1" type="GnmGODataVector">Sheet1!$I$9</dimension>
-                  </data>
-                </GogObject>
-              </GogObject>
-            </GogObject>
-          </GogObject>
-        </gnm:SheetObjectGraph>
-      </gnm:Objects>
       <gnm:Cells>
         <gnm:Cell Row="0" Col="0" ValueType="60">Toy Car Distance Measurements</gnm:Cell>
         <gnm:Cell Row="2" Col="0" ValueType="60">Raw Measurements</gnm:Cell>
@@ -238,7 +128,7 @@
         <gnm:Cell Row="5" Col="3" ExprID="1"/>
         <gnm:Cell Row="5" Col="5" ValueType="40">64</gnm:Cell>
         <gnm:Cell Row="5" Col="6" ValueType="40">500</gnm:Cell>
-        <gnm:Cell Row="5" Col="7" ExprID="3">=average(C9:C12)</gnm:Cell>
+        <gnm:Cell Row="5" Col="7">=average(C9:C12)</gnm:Cell>
         <gnm:Cell Row="5" Col="8" ExprID="1"/>
         <gnm:Cell Row="6" Col="0" ValueType="40">64</gnm:Cell>
         <gnm:Cell Row="6" Col="1" ValueType="40">200</gnm:Cell>
@@ -246,7 +136,7 @@
         <gnm:Cell Row="6" Col="3" ExprID="1"/>
         <gnm:Cell Row="6" Col="5" ValueType="40">64</gnm:Cell>
         <gnm:Cell Row="6" Col="6" ValueType="40">1000</gnm:Cell>
-        <gnm:Cell Row="6" Col="7" ExprID="4">=average(C13:C16)</gnm:Cell>
+        <gnm:Cell Row="6" Col="7" ExprID="3">=average(C13:C16)</gnm:Cell>
         <gnm:Cell Row="6" Col="8" ExprID="1"/>
         <gnm:Cell Row="7" Col="0" ValueType="40">64</gnm:Cell>
         <gnm:Cell Row="7" Col="1" ValueType="40">200</gnm:Cell>
@@ -254,7 +144,7 @@
         <gnm:Cell Row="7" Col="3" ExprID="1"/>
         <gnm:Cell Row="7" Col="5" ValueType="40">128</gnm:Cell>
         <gnm:Cell Row="7" Col="6" ValueType="40">200</gnm:Cell>
-        <gnm:Cell Row="7" Col="7" ExprID="5">=average(C17:C20)</gnm:Cell>
+        <gnm:Cell Row="7" Col="7" ExprID="4">=average(C17:C20)</gnm:Cell>
         <gnm:Cell Row="7" Col="8" ExprID="1"/>
         <gnm:Cell Row="8" Col="0" ValueType="40">64</gnm:Cell>
         <gnm:Cell Row="8" Col="1" ValueType="40">500</gnm:Cell>
@@ -262,7 +152,7 @@
         <gnm:Cell Row="8" Col="3" ExprID="1"/>
         <gnm:Cell Row="8" Col="5" ValueType="40">128</gnm:Cell>
         <gnm:Cell Row="8" Col="6" ValueType="40">500</gnm:Cell>
-        <gnm:Cell Row="8" Col="7" ExprID="6">=average(C21:C24)</gnm:Cell>
+        <gnm:Cell Row="8" Col="7" ExprID="5">=average(C21:C24)</gnm:Cell>
         <gnm:Cell Row="8" Col="8" ExprID="1"/>
         <gnm:Cell Row="9" Col="0" ValueType="40">64</gnm:Cell>
         <gnm:Cell Row="9" Col="1" ValueType="40">500</gnm:Cell>
@@ -270,7 +160,7 @@
         <gnm:Cell Row="9" Col="3" ExprID="1"/>
         <gnm:Cell Row="9" Col="5" ValueType="40">128</gnm:Cell>
         <gnm:Cell Row="9" Col="6" ValueType="40">1000</gnm:Cell>
-        <gnm:Cell Row="9" Col="7" ExprID="7">=average(C25:C28)</gnm:Cell>
+        <gnm:Cell Row="9" Col="7" ExprID="6">=average(C25:C28)</gnm:Cell>
         <gnm:Cell Row="9" Col="8" ExprID="1"/>
         <gnm:Cell Row="10" Col="0" ValueType="40">64</gnm:Cell>
         <gnm:Cell Row="10" Col="1" ValueType="40">500</gnm:Cell>

@@ -7,6 +7,7 @@ void backward(int speed);
 void left(int speed);
 void right(int speed);
 void stop();
+void brake();
 void test_motors();
 
 #endif

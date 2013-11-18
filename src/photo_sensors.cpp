@@ -36,15 +36,22 @@ void stop_i(int speed) {
     stop();
 }
 
+void nothing(int speed) {
+}
+
 void (*trigger_funcs[NUM_TRIGGERS]) (int) = { 
     stop_i,   // 0 - 000
     left,     // 1 - 001
     right,    // 2 - 010
     forward,  // 3 - 011
-    backward, // 4 - 100
-    right,    // 5 - 101
-    left,     // 6 - 110
-    backward, // 7 - 111
+    //backward, // 4 - 100
+    //right,    // 5 - 101
+    //left,     // 6 - 110
+    //backward, // 7 - 111
+    nothing,  // 4 - 100
+    nothing,  // 5 - 101
+    nothing,  // 6 - 110
+    nothing,  // 7 - 111
     };
 
 
@@ -116,8 +123,8 @@ void photo_sensors_actions()
     // Initialize the array the first time through the loop
     // so our average will === current values
     if(first_time) {
-      first_time = false;
-      init_light_levels(curr_levels);
+        first_time = false;
+        init_light_levels(curr_levels);
     }
 
     // Average last N samples
@@ -140,10 +147,10 @@ void photo_sensors_actions()
     }
 
     // Perform action based on trigger value
+    print_debug(curr_levels, avg_levels);
     if(trigger_value > 0) {
         Serial.print("trigger value: ");
         Serial.println(trigger_value);
-        print_debug(curr_levels, avg_levels);
     }
 
     trigger_funcs[trigger_value](DEFAULT_SPEED);

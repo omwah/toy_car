@@ -74,10 +74,21 @@ void right(int speed)
      digitalWrite(pinI2,LOW);//turn DC Motor A move clockwise
      digitalWrite(pinI1,HIGH);
 }
+
 void stop()
 {
-     digitalWrite(speedpinA,LOW);// Unenble the pin, to stop the motor. this should be done to avid damaging the motor. 
+     // Unenable the pin, to stop the motor. this should be done to avid damaging the motor. 
+     digitalWrite(speedpinA,LOW);
      digitalWrite(speedpinB,LOW);
+}
+
+void brake()
+{
+     // Braking
+     digitalWrite(pinI4,HIGH);
+     digitalWrite(pinI3,HIGH);
+     digitalWrite(pinI2,HIGH);
+     digitalWrite(pinI1,HIGH);
 }
 
 void test_motors()
