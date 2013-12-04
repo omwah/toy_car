@@ -56,23 +56,35 @@ void backward(int speed)
      digitalWrite(pinI2,HIGH);//turn DC Motor A move clockwise
      digitalWrite(pinI1,LOW);
 }
-void left(int speed)
+
+void left(int speedA, int speedB)
 {
-     analogWrite(speedpinA,speed);//input a simulation value to set the speed
-     analogWrite(speedpinB,speed);
+     analogWrite(speedpinA,speedA);//input a simulation value to set the speed
+     analogWrite(speedpinB,speedB);
      digitalWrite(pinI4,HIGH);//turn DC Motor B move clockwise
      digitalWrite(pinI3,LOW);
      digitalWrite(pinI2,HIGH);//turn DC Motor A move clockwise
      digitalWrite(pinI1,LOW);
 }
-void right(int speed)
+
+void left(int speed)
 {
-     analogWrite(speedpinA,speed);//input a simulation value to set the speed
-     analogWrite(speedpinB,speed);
+    left(speed, speed);
+}
+
+void right(int speedA, int speedB)
+{
+     analogWrite(speedpinA,speedA);//input a simulation value to set the speed
+     analogWrite(speedpinB,speedB);
      digitalWrite(pinI4,LOW);//turn DC Motor B move anticlockwise
      digitalWrite(pinI3,HIGH);
      digitalWrite(pinI2,LOW);//turn DC Motor A move clockwise
      digitalWrite(pinI1,HIGH);
+}
+
+void right(int speed)
+{
+    right(speed, speed);
 }
 
 void stop()

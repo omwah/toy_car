@@ -8,48 +8,71 @@
 RCSwitch mySwitch = RCSwitch();
 
 void rc_setup() {
-  mySwitch.enableReceive(0);  // Receiver on inerrupt 0 => that is pin #2
+  // Receiver on interrupt 0 => that is pin #2
+  mySwitch.enableReceive(0);
 }
 
-int speed = .25 * 255;
+int SPEEDS[] = { .35 * 255, .50 * 255, .75 * 255, 1.0 * 255 };
+#define TURN_SPEED_ADJ .75
+
+// Set initial speed
+int speed = SPEEDS[1];
 
 void rc_recieve() {
   if (mySwitch.available()) {
     
-    int recieved_value = mySwitch.getReceivedValue();
+    char recieved_value = mySwitch.getReceivedValue();
+    Serial.print("RC recieved: "); Serial.println(recieved_value);
+
     switch(recieved_value) {
-    case 119: // w
+    case 'w':
+        // straight forward
         if (!ultrasound_stop(25)) {
             forward(speed);
-            //delay(100);
         }
         break;
-    case 115: // s
+    case 's':
+        // straight backward
         backward(speed);
-        //delay(100);
         break;
-    case 97:  // a
-        left(speed);
-        //delay(80);
+    case 'a':
+        // Turn left on axis by spinning both
+        // motors in opposite directions
+        left(speed * TURN_SPEED_ADJ);
         break;
-    case 100: // d
-        right(speed);
-        //delay(80);
+    case 'q':
+        // Turn left spinning only right motor
+        // So move slightly forward
+        left(0, speed * TURN_SPEED_ADJ);
         break;
-    case 32: // <space>
+    case 'z':
+        // Turn left spinning only left motor
+        // So move slightly backward
+        left(speed * TURN_SPEED_ADJ, 0);
+        break;
+    case 'd':
+        // Turn right on axis by spinning both
+        // motors in opposite directions
+        right(speed * TURN_SPEED_ADJ);
+        break;
+    case 'e':
+        // Turn right spinning only left motor
+        // So move slightly forward
+        right(speed * TURN_SPEED_ADJ, 0);
+        break;
+    case 'c':
+        // Turn right spinning only right motor
+        // So move slightly backward
+         right(0, speed * TURN_SPEED_ADJ);
+        break;
+    case char(32): // <space>
         brake();
         break;
-    case 49: // 1
-        speed = .35 * 255;
-        break;
-    case 50: // 2
-        speed = .50 * 255;
-        break;
-    case 51: // 3
-        speed = .75 * 255;
-        break;
-    case 52: // 4
-        speed = 1.0 * 255;
+    case '1':
+    case '2':
+    case '3':
+    case '4':
+        speed = SPEEDS[int(recieved_value) - 49];
         break;
     default:
         stop();
