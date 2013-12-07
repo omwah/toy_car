@@ -3,18 +3,16 @@
 
 void motor_shield_setup();
 
-void forward(int speed);
-void backward(int speed);
+void forward(byte speed);
+void backward(byte speed);
 
-void left(int speed);
-void right(int speed);
+void left(byte speed);
+void right(byte speed);
 
-void left(int speedA, int speedB);
-void right(int speedA, int speedB);
+void left(byte speedA, byte speedB);
+void right(byte speedA, byte speedB);
 
 void stop();
 void brake();
-
-void test_motors();
 
 #endif

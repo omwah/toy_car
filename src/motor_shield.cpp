@@ -19,13 +19,23 @@
 
 #include <Arduino.h>
 
-int pinI1=8;//define I1 interface
-int speedpinA=9;//enable motor A
-int pinI2=11;//define I2 interface 
+// define I1 interface
+#define pinI1 8
 
-int pinI3=12;//define I3 interface 
-int speedpinB=10;//enable motor B
-int pinI4=13;//define I4 interface 
+// enable motor A
+#define speedpinA 9
+
+// define I2 interface 
+#define pinI2 11
+
+// define I3 interface 
+#define pinI3 12
+
+// enable motor B
+#define speedpinB 10
+
+// define I4 interface 
+#define pinI4 13
 
 void motor_shield_setup()
 {
@@ -37,7 +47,7 @@ void motor_shield_setup()
   pinMode(speedpinB,OUTPUT);
 }
  
-void forward(int speed)
+void forward(byte speed)
 {
      analogWrite(speedpinA,speed);//input a simulation value to set the speed
      analogWrite(speedpinB,speed);
@@ -47,7 +57,7 @@ void forward(int speed)
      digitalWrite(pinI1,HIGH);
 }
 
-void backward(int speed)
+void backward(byte speed)
 {
      analogWrite(speedpinA,speed);//input a simulation value to set the speed
      analogWrite(speedpinB,speed);
@@ -57,7 +67,7 @@ void backward(int speed)
      digitalWrite(pinI1,LOW);
 }
 
-void left(int speedA, int speedB)
+void left(byte speedA, byte speedB)
 {
      analogWrite(speedpinA,speedA);//input a simulation value to set the speed
      analogWrite(speedpinB,speedB);
@@ -67,12 +77,12 @@ void left(int speedA, int speedB)
      digitalWrite(pinI1,LOW);
 }
 
-void left(int speed)
+void left(byte speed)
 {
     left(speed, speed);
 }
 
-void right(int speedA, int speedB)
+void right(byte speedA, byte speedB)
 {
      analogWrite(speedpinA,speedA);//input a simulation value to set the speed
      analogWrite(speedpinB,speedB);
@@ -82,7 +92,7 @@ void right(int speedA, int speedB)
      digitalWrite(pinI1,HIGH);
 }
 
-void right(int speed)
+void right(byte speed)
 {
     right(speed, speed);
 }
@@ -101,29 +111,4 @@ void brake()
      digitalWrite(pinI3,HIGH);
      digitalWrite(pinI2,HIGH);
      digitalWrite(pinI1,HIGH);
-}
-
-void test_motors()
-{
-  int speed = 127;
-
-  left(speed);
-  delay(2000);
-  stop();
-  delay(1000);
-
-  right(speed);
-  delay(2000);
-  stop();
-  delay(1000);
-
-  forward(speed);
-  delay(2000);
-  stop();
-  delay(1000);
-
-  backward(speed);
-  delay(2000); 
-  stop();
-  delay(1000);
 }

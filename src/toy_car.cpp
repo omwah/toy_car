@@ -3,16 +3,14 @@
 
 #include <Arduino.h>
 #include "motor_shield.h"
-#include "photo_sensors.h"
+//#include "photo_sensors.h"
 #include "ultrasound.h"
 #include "rc_recieve.h"
-#include "calibrate.h"
 
 void setup()
 {
     motor_shield_setup();
-    photo_sensors_setup();
-    calibrate_setup();
+//    photo_sensors_setup();
     ultrasound_setup();
     rc_setup();
 
@@ -26,7 +24,7 @@ void loop()
     switch(mode) {
     case 0:
         // Photo sensors
-        photo_sensors_actions();
+        //photo_sensors_actions();
         delay(50);
         break;
     case 1:
@@ -36,10 +34,6 @@ void loop()
         break;
     case 2:
         rc_recieve();
-        break;
-    case 3:
-        // Calibrate
-        calibrate();
         break;
     }
 }

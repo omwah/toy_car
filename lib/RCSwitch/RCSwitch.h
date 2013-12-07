@@ -77,10 +77,10 @@ class RCSwitch {
     void enableReceive(int interrupt);
     void enableReceive();
     void disableReceive();
-    bool available();
+    virtual bool available();
     void resetAvailable();
 	
-    unsigned long getReceivedValue();
+    virtual unsigned long getReceivedValue();
     unsigned int getReceivedBitlength();
     unsigned int getReceivedDelay();
     unsigned int getReceivedProtocol();

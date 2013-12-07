@@ -8,9 +8,11 @@ void photo_sensors_setup()
 }
 
 // Keep track of a bunch of light levels to keep a running average
-const int NUM_LIGHT_VALS = 10;
-const int NUM_SENSORS = 3;
-const int NUM_TRIGGERS = 8; // NUM_SENSORS^2 - 1
+#define NUM_LIGHT_VALS 10
+#define NUM_SENSORS 3
+
+// NUM_SENSORS^2 - 1
+#define NUM_TRIGGERS 8
 
 // Analog pins which are connected to the photo resistors
 // 3 - left
@@ -18,7 +20,7 @@ const int NUM_TRIGGERS = 8; // NUM_SENSORS^2 - 1
 // 1 - backward
 const int sensors[NUM_SENSORS] = {3, 2, 1};
 const int trigger_thresh[NUM_SENSORS] = {60, 60, 80};
-const int DEFAULT_SPEED = 100;
+#define DEFAULT_SPEED 100
 
 // Set up functions to call when sensors are triggered
 // Functions defined in motor_shield.ino
@@ -32,14 +34,14 @@ const int DEFAULT_SPEED = 100;
 // 001 sensor 1
 
 // Function to meet signature for function array below
-void stop_i(int speed) {
+void stop_i(byte speed) {
     stop();
 }
 
-void nothing(int speed) {
+void nothing(byte speed) {
 }
 
-void (*trigger_funcs[NUM_TRIGGERS]) (int) = { 
+void (*trigger_funcs[NUM_TRIGGERS]) (byte) = { 
     stop_i,   // 0 - 000
     left,     // 1 - 001
     right,    // 2 - 010
