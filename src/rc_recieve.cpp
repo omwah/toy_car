@@ -1,35 +1,46 @@
 #include <Arduino.h>
 #include <RCSwitch.h>
 
+#include "RCRecord.h"
+
 #include "motor_shield.h"
 #include "ultrasound.h"
 #include "rc_recieve.h"
 
-RCSwitch mySwitch = RCSwitch();
+#define DEBUG false
+
+RCRecord mySwitch = RCRecord();
+
+#define TURN_SPEED_ADJ 0.95 
+#define STOP_DELAY 100
+
+byte SPEEDS[] = { .35 * 255, .50 * 255, .75 * 255, 1.0 * 255 };
+
+// Set initial speed
+byte speed = SPEEDS[1];
 
 void rc_setup() {
   // Receiver on interrupt 0 => that is pin #2
   mySwitch.enableReceive(0);
 }
 
-int SPEEDS[] = { .35 * 255, .50 * 255, .75 * 255, 1.0 * 255 };
-#define TURN_SPEED_ADJ .75
-
-// Set initial speed
-int speed = SPEEDS[1];
-
 void rc_recieve() {
   if (mySwitch.available()) {
     
     char recieved_value = mySwitch.getReceivedValue();
-    Serial.print("RC recieved: "); Serial.println(recieved_value);
+
+    if(DEBUG) {
+        Serial.print("RC recieved: "); Serial.println(recieved_value);
+    }
+
+    bool do_record = true;
 
     switch(recieved_value) {
     case 'w':
         // straight forward
-        if (!ultrasound_stop(25)) {
-            forward(speed);
-        }
+        //if (!ultrasound_stop(25)) {
+        forward(speed);
+        //}
         break;
     case 's':
         // straight backward
@@ -74,13 +85,33 @@ void rc_recieve() {
     case '4':
         speed = SPEEDS[int(recieved_value) - 49];
         break;
+    case 'o':
+        delay(STOP_DELAY);
+        break;
+    case 'x':
+        mySwitch.clear();
+        do_record = false;
+        break;
+    case 'p':
+        // Debug by printing values to serial
+        if(DEBUG)
+            mySwitch.print_values();
+        mySwitch.play_back();
+        do_record = false;
+        break;
     default:
-        stop();
+        // If a value is not handled, do not record it
+        do_record = false;
+    }
+
+    // Don't record debugging and recording control characters
+    if(do_record && mySwitch.can_record()) {
+        mySwitch.record_value(recieved_value);
     }
 
     mySwitch.resetAvailable();
   } else {
-      delay(100);
+      delay(STOP_DELAY);
       stop();
   }
 }
