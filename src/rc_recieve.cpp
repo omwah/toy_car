@@ -1,15 +1,12 @@
 #include <Arduino.h>
 #include <RCSwitch.h>
 
-#include "RCRecord.h"
-
 #include "motor_shield.h"
-#include "ultrasound.h"
 #include "rc_recieve.h"
 
-#define DEBUG false
+#define DEBUG false 
 
-RCRecord mySwitch = RCRecord();
+RCSwitch mySwitch = RCSwitch();
 
 #define TURN_SPEED_ADJ 0.95 
 #define STOP_DELAY 100
@@ -85,28 +82,6 @@ void rc_recieve() {
     case '4':
         speed = SPEEDS[int(recieved_value) - 49];
         break;
-    case 'o':
-        delay(STOP_DELAY);
-        break;
-    case 'x':
-        mySwitch.clear();
-        do_record = false;
-        break;
-    case 'p':
-        // Debug by printing values to serial
-        if(DEBUG)
-            mySwitch.print_values();
-        mySwitch.play_back();
-        do_record = false;
-        break;
-    default:
-        // If a value is not handled, do not record it
-        do_record = false;
-    }
-
-    // Don't record debugging and recording control characters
-    if(do_record && mySwitch.can_record()) {
-        mySwitch.record_value(recieved_value);
     }
 
     mySwitch.resetAvailable();
