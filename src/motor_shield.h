@@ -1,6 +1,8 @@
 #ifndef MOTOR_SHIELD
 #define MOTOR_SHIELD
 
+#include <Arduino.h>
+
 // Interface for motor shields to implement
 class MotorShield {
 public:

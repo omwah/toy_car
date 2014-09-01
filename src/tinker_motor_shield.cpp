@@ -52,7 +52,8 @@ void TinkerMotorShield::left(byte speedA, byte speedB)
 
 void TinkerMotorShield::left(byte speed)
 {
-    left(speed, speed);
+    digitalWrite(DIR_B, HIGH);
+    analogWrite(PWM_B, speed);
 }
 
 void TinkerMotorShield::right(byte speedA, byte speedB)
@@ -65,7 +66,8 @@ void TinkerMotorShield::right(byte speedA, byte speedB)
 
 void TinkerMotorShield::right(byte speed)
 {
-    right(speed, speed);
+    digitalWrite(DIR_A, HIGH);
+    analogWrite(PWM_A, speed);
 }
 
 void TinkerMotorShield::stop()
