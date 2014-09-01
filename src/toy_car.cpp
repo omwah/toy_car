@@ -3,14 +3,14 @@
 
 #include <Arduino.h>
 #include <Pixy.h>
-#include "motor_shield.h"
+#include "tinker_motor_shield.h"
 #include "rc_recieve.h"
+
+TinkerMotorShield motor_shield = TinkerMotorShield();
 
 void setup()
 {
-    motor_shield_setup();
     rc_setup();
-    object_follow_setup();
 
     // serial for debugging
     Serial.begin(9600);
@@ -19,5 +19,5 @@ void setup()
 
 void loop()
 {
-    rc_recieve();
+    rc_recieve(motor_shield);
 }

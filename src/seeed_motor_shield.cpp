@@ -19,6 +19,8 @@
 
 #include <Arduino.h>
 
+#include "seeed_motor_shield.h"
+
 // define I1 interface
 #define pinI1 8
 
@@ -37,7 +39,7 @@
 // define I4 interface 
 #define pinI4 13
 
-void motor_shield_setup()
+SeeedMotorShield::SeeedMotorShield()
 {
   pinMode(pinI1,OUTPUT);
   pinMode(pinI2,OUTPUT);
@@ -47,7 +49,7 @@ void motor_shield_setup()
   pinMode(speedpinB,OUTPUT);
 }
  
-void forward(byte speed)
+void SeeedMotorShield::forward(byte speed)
 {
      analogWrite(speedpinA,speed);//input a simulation value to set the speed
      analogWrite(speedpinB,speed);
@@ -57,7 +59,7 @@ void forward(byte speed)
      digitalWrite(pinI1,HIGH);
 }
 
-void backward(byte speed)
+void SeeedMotorShield::backward(byte speed)
 {
      analogWrite(speedpinA,speed);//input a simulation value to set the speed
      analogWrite(speedpinB,speed);
@@ -67,7 +69,7 @@ void backward(byte speed)
      digitalWrite(pinI1,LOW);
 }
 
-void left(byte speedA, byte speedB)
+void SeeedMotorShield::left(byte speedA, byte speedB)
 {
      analogWrite(speedpinA,speedA);//input a simulation value to set the speed
      analogWrite(speedpinB,speedB);
@@ -77,12 +79,12 @@ void left(byte speedA, byte speedB)
      digitalWrite(pinI1,LOW);
 }
 
-void left(byte speed)
+void SeeedMotorShield::left(byte speed)
 {
     left(speed, speed);
 }
 
-void right(byte speedA, byte speedB)
+void SeeedMotorShield::right(byte speedA, byte speedB)
 {
      analogWrite(speedpinA,speedA);//input a simulation value to set the speed
      analogWrite(speedpinB,speedB);
@@ -92,19 +94,19 @@ void right(byte speedA, byte speedB)
      digitalWrite(pinI1,HIGH);
 }
 
-void right(byte speed)
+void SeeedMotorShield::right(byte speed)
 {
     right(speed, speed);
 }
 
-void stop()
+void SeeedMotorShield::stop()
 {
      // Unenable the pin, to stop the motor. this should be done to avid damaging the motor. 
      digitalWrite(speedpinA,LOW);
      digitalWrite(speedpinB,LOW);
 }
 
-void brake()
+void SeeedMotorShield::brake()
 {
      // Braking
      digitalWrite(pinI4,HIGH);

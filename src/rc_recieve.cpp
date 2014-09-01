@@ -1,7 +1,6 @@
 #include <Arduino.h>
 #include <RCSwitch.h>
 
-#include "motor_shield.h"
 #include "rc_recieve.h"
 
 #define DEBUG false 
@@ -21,7 +20,7 @@ void rc_setup() {
   mySwitch.enableReceive(0);
 }
 
-void rc_recieve() {
+void rc_recieve(MotorShield& motor_shield) {
   if (mySwitch.available()) {
     
     char recieved_value = mySwitch.getReceivedValue();
@@ -36,45 +35,45 @@ void rc_recieve() {
     case 'w':
         // straight forward
         //if (!ultrasound_stop(25)) {
-        forward(speed);
+        motor_shield.forward(speed);
         //}
         break;
     case 's':
         // straight backward
-        backward(speed);
+        motor_shield.backward(speed);
         break;
     case 'a':
         // Turn left on axis by spinning both
         // motors in opposite directions
-        left(speed * TURN_SPEED_ADJ);
+        motor_shield.left(speed * TURN_SPEED_ADJ);
         break;
     case 'q':
         // Turn left spinning only right motor
         // So move slightly forward
-        left(0, speed * TURN_SPEED_ADJ);
+        motor_shield.left(0, speed * TURN_SPEED_ADJ);
         break;
     case 'z':
         // Turn left spinning only left motor
         // So move slightly backward
-        left(speed * TURN_SPEED_ADJ, 0);
+        motor_shield.left(speed * TURN_SPEED_ADJ, 0);
         break;
     case 'd':
         // Turn right on axis by spinning both
         // motors in opposite directions
-        right(speed * TURN_SPEED_ADJ);
+        motor_shield.right(speed * TURN_SPEED_ADJ);
         break;
     case 'e':
         // Turn right spinning only left motor
         // So move slightly forward
-        right(speed * TURN_SPEED_ADJ, 0);
+        motor_shield.right(speed * TURN_SPEED_ADJ, 0);
         break;
     case 'c':
         // Turn right spinning only right motor
         // So move slightly backward
-         right(0, speed * TURN_SPEED_ADJ);
+        motor_shield.right(0, speed * TURN_SPEED_ADJ);
         break;
     case char(32): // <space>
-        brake();
+        motor_shield.brake();
         break;
     case '1':
     case '2':
@@ -87,6 +86,6 @@ void rc_recieve() {
     mySwitch.resetAvailable();
   } else {
       delay(STOP_DELAY);
-      stop();
+      motor_shield.stop();
   }
 }

@@ -1,18 +1,20 @@
-#ifndef MOTOR_SHIELD_H
-#define MOTOR_SHIELD_H
+#ifndef MOTOR_SHIELD
+#define MOTOR_SHIELD
 
-void motor_shield_setup();
+// Interface for motor shields to implement
+class MotorShield {
+public:
+    virtual void forward(byte speed) = 0;
+    virtual void backward(byte speed) = 0;
 
-void forward(byte speed);
-void backward(byte speed);
+    virtual void left(byte speed) = 0;
+    virtual void right(byte speed) = 0;
 
-void left(byte speed);
-void right(byte speed);
+    virtual void left(byte speedA, byte speedB) = 0;
+    virtual void right(byte speedA, byte speedB) = 0;
 
-void left(byte speedA, byte speedB);
-void right(byte speedA, byte speedB);
-
-void stop();
-void brake();
+    virtual void stop() = 0;
+    virtual void brake() = 0;
+};
 
 #endif
